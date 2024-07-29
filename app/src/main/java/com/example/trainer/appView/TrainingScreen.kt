@@ -4,20 +4,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.trainer.R
 import com.example.trainer.appView.uiElements.BackButton
+import com.example.trainer.appView.uiElements.NavigationButton
 import com.example.trainer.databases.Question
 import com.example.trainer.ui.theme.MyStyles
 import com.example.trainer.viewModels.QuestionViewModel
@@ -116,33 +112,19 @@ fun TrainingScreen(questionViewModel: QuestionViewModel, onBack: () -> Unit) {
                         .padding(horizontal = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Button(
-                        shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.buttonColors(
+                    NavigationButton(
+                        modifier = Modifier.fillMaxWidth(0.5f),
+                        onClick = { isAnswerShown = true  },
+                        painter = painterResource(id = R.drawable.eye_24),
+                        buttonColors = ButtonDefaults.buttonColors(
                             containerColor = Color.Transparent,
                             contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth(0.5f)
-                            .fillMaxHeight(),
-                        onClick = { isAnswerShown = true }
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(28.dp),
-                            painter = painterResource(id = R.drawable.eye_24),
-                            contentDescription = null
                         )
-                    }
+                    )
 
-                    Button(
-                        shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(),
+                    NavigationButton(
+                        iconSize = 32,
+                        modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             scope.launch {
                                 usedQuestions.add(currentQuestion)
@@ -155,14 +137,13 @@ fun TrainingScreen(questionViewModel: QuestionViewModel, onBack: () -> Unit) {
                                     (allQuestions.minus(usedQuestions.toSet())).random()
                                 isAnswerShown = false
                             }
-                        }
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(36.dp),
-                            painter = painterResource(id = R.drawable.arrow_small_right_24),
-                            contentDescription = null
+                        },
+                        painter = painterResource(id = R.drawable.arrow_small_right_24),
+                        buttonColors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                         )
-                    }
+                    )
                 }
             }
         }

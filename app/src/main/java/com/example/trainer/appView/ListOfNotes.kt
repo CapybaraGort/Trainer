@@ -2,6 +2,7 @@ package com.example.trainer.appView
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -43,7 +44,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOfNotes(modifier: Modifier = Modifier, viewModel: QuestionViewModel, navHostController: NavHostController) {
+fun ListOfNotes(
+    modifier: Modifier = Modifier,
+    viewModel: QuestionViewModel,
+    navHostController: NavHostController
+) {
     val questions by viewModel.allQuestions.observeAsState(emptyList())
     val scope = rememberCoroutineScope()
     var selectedNotes by remember { mutableStateOf(setOf<Question>()) }
@@ -52,24 +57,25 @@ fun ListOfNotes(modifier: Modifier = Modifier, viewModel: QuestionViewModel, nav
     Scaffold(modifier = modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
-            TopAppBar(modifier = Modifier.offset((-8).dp), title = {
-                BackButton {
-                    navHostController.navigateUp()
-                }
-            },
-            actions = {
-                if (isSelectionMode) {
-                    IconButton(onClick = {
-                        scope.launch {
-                            selectedNotes = emptySet()
-                            isSelectionMode = false
+            if (isSelectionMode) {
+                TopAppBar(modifier = Modifier.offset((-8).dp),
+                    title = { Spacer(modifier = Modifier) },
+                    actions = {
+                        IconButton(onClick = {
+                            scope.launch {
+                                selectedNotes = emptySet()
+                                isSelectionMode = false
+                            }
+                            viewModel.deleteQuestions(selectedNotes.map { it.id })
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.trash_24),
+                                contentDescription = "Delete"
+                            )
                         }
-                        viewModel.deleteQuestions(selectedNotes.map { it.id })
-                    }) {
-                        Icon(painter = painterResource(id = R.drawable.trash_24), contentDescription = "Delete")
                     }
-                }
-            })
+                )
+            }
         },
 
         floatingActionButton = {
@@ -92,7 +98,8 @@ fun ListOfNotes(modifier: Modifier = Modifier, viewModel: QuestionViewModel, nav
                 columns = StaggeredGridCells.Adaptive(minSize = 150.dp),
                 modifier = Modifier
                     .padding(paddingValues)
-                    .fillMaxSize().padding(horizontal = 12.dp),
+                    .fillMaxSize()
+                    .padding(horizontal = 12.dp),
                 contentPadding = PaddingValues(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalItemSpacing = 8.dp
@@ -103,12 +110,12 @@ fun ListOfNotes(modifier: Modifier = Modifier, viewModel: QuestionViewModel, nav
                         isSelected = item in selectedNotes,
                         onClick = {
                             scope.launch {
-                                if(isSelectionMode){
+                                if (isSelectionMode) {
                                     selectedNotes =
-                                        if(item in selectedNotes) selectedNotes - item
+                                        if (item in selectedNotes) selectedNotes - item
                                         else selectedNotes + item
 
-                                    if(selectedNotes.isEmpty()) {
+                                    if (selectedNotes.isEmpty()) {
                                         isSelectionMode = false
                                     }
                                 } else {
@@ -117,7 +124,7 @@ fun ListOfNotes(modifier: Modifier = Modifier, viewModel: QuestionViewModel, nav
                             }
                         },
                         onPress = {
-                            if(!isSelectionMode) {
+                            if (!isSelectionMode) {
                                 isSelectionMode = true
                                 selectedNotes = setOf(item)
                             }

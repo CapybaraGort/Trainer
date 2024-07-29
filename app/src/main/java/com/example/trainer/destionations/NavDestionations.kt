@@ -6,9 +6,6 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
-object ListOfWords
-
-@Serializable
 data class SaveNote(val questionId: Int)
 
 @Serializable
