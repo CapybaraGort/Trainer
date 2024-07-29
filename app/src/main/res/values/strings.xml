@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TRAINER</string>
+    <string name="start_train_btn">Начать тренировку</string>
+    <string name="list_of_notes">Список заметок</string>
+    <string name="back">Назад</string>
+    <string name="enter_question">Введите вопрос</string>
+    <string name="enter_answer">Введите ответ</string>
+    <string name="add">Добавить</string>
+    <string name="add_a_question">Добавьте вопрос</string>
+    <string name="change">Изменить</string>
+    <string name="changed">Изменено</string>
+    <string name="show_answer">Показать ответ</string>
+    <string name="next_question">Следующий вопрос</string>
+    <string name="no_notes">Нет заметок</string>
+    <string name="fields_alert">Заполните все поля!</string>
+</resources>
