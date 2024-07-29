@@ -10,7 +10,6 @@ import com.example.trainer.databases.Question
 import com.example.trainer.databases.QuestionDatabase
 import com.example.trainer.databases.QuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

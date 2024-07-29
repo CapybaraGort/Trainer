@@ -1,6 +1,5 @@
 package com.example.trainer.appView.uiElements
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.trainer.ui.theme.MyStyles
 import com.example.trainer.databases.Question
+import com.example.trainer.ui.theme.MyStyles
 
 @Composable
 fun QuestionCard(
